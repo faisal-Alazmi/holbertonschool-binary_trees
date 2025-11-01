@@ -2,7 +2,7 @@
 
 /**
  * binary_tree_height_b - Measures the height of a binary tree
- *                        (used for balance factor calculation)
+ *                        counting levels (for balance factor)
  * @tree: Pointer to the root node of the tree to measure
  *
  * Return: Height of the tree, 0 if tree is NULL
@@ -16,14 +16,12 @@ size_t binary_tree_height_b(const binary_tree_t *tree)
 		return (0);
 
 	if (tree->left)
-		left_height = 1 + binary_tree_height_b(tree->left);
+		left_height = binary_tree_height_b(tree->left);
 	if (tree->right)
-		right_height = 1 + binary_tree_height_b(tree->right);
+		right_height = binary_tree_height_b(tree->right);
 
-	if (left_height > right_height)
-		return (left_height);
-	else
-		return (right_height);
+	/* Add 1 to include the current node level */
+	return (1 + (left_height > right_height ? left_height : right_height));
 }
 
 /**
